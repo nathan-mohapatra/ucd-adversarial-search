@@ -28,8 +28,7 @@ I described my evaluation function with
 I implemented the minimax algorithm and my evaluation function following the interface defined above.
 
 ## Part 3
-I played my algorithm five times against the given AI players: **StupidAI** and **RandomAI**. My algorithm always beats these two AI players.  
-Then, I played my algorithm ten times against **MonteCarloAI**. My algorithm beat this AI player the majority of times.
+I played my algorithm five times against the given AI players: **StupidAI** and **RandomAI**. My algorithm always beats these two AI players. Then, I played my algorithm ten times against **MonteCarloAI**. My algorithm beat this AI player the majority of times.
 
 > Use the `-text` option and the `-seed` options (seeds 1 through 10) to produce the entire output from stdout. You can use output redirection to save this to a file.
 
