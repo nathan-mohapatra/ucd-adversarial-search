@@ -8,13 +8,16 @@ For this assignment, I used Java to write a computer program that plays (and usu
 
 Connect Four is a tic-tac-toe variant played on a grid. Players alternate turns dropping coins into one of the seven different columns. Unlike tic-tac-toe, Connect Four is affected by gravity, and coins may only be placed at the lowest possible positions in each column. As the name implies, the goal of Connect Four is to get four of your coins in a row, either horizontally, vertically, or diagonally. The first player to do so wins. If all locations are filled without a player winning, the game is a draw. Connect Four is known to be biased in favor of the first player; thus, AI is tested as both the first and the second player. A decent AI will never lose as the first player, and a good AI will be able to win as the second player.
 
-I began by creating an instance of the **AIModule** class that plays Connect Four (by familiarizing myself with the workings of the provided **GameState** and **AIModule** classes). Since even a simple minimax player can play perfectly given unlimited time, the goal is to create a player that can select an optimal move under limited time conditions.
+I began by creating an instance of the `AIModule` class that plays Connect Four (by familiarizing myself with the workings of the provided `GameState` and `AIModule` classes). Since even a simple minimax player can play perfectly given unlimited time, the goal is to create a player that can select an optimal move under limited time conditions.
 
-The provided Connect Four framework allows you to mix and match human and computer opponents using the command line. By default, the two players are human-controlled. You can choose which AI modules to use by using the `-p1` and `-p2` switches for the first player and the second player, respectively. For example, to pit the **RandomAI** player against the **MonteCarloAI** player, you could use:
+The provided Connect Four framework allows you to mix and match human and computer opponents using the command line. By default, the two players are human-controlled. You can choose which AI modules to use by using the `-p1` and `-p2` switches for the first player and the second player, respectively. For example, to pit the `RandomAI` player against the `MonteCarloAI` player, you could use:
 
 > `java Main -p1 RandomAI -p2 MonteCarloAI`
 
-You can also customize how much time is available to the AI players. By default, each AI player has 500ms to select a move. You can use the `-t` switch to change this.
+Any unspecified players will be filled in with human players.
+
+You can also customize how much time is available to the AI players. By default, each AI player has 500ms to select a move. You can use the `-t` switch to change this.  
+You can also use the `--help` switch to learn more about the options available to you.
 
 ## Part 1
 I described my evaluation function with
