@@ -22,18 +22,15 @@ You can also use the `--help` switch to learn more about the options available t
 ## Part 1: Creating Evaluation Function
 In the context of game theory, a game tree is a graph representing all possible game states within such a game; it is a directed graph whose nodes are states (e.g. the arrangement of the pieces in a board game) and whose edges are actions (e.g. to move a piece from one position on the board to another). Following this analogy, the root node of the tree is the starting state of a game, and the leaf nodes are the termial states of a game.
 
-An evaluation function quantifies the value or goodness of a node in a game tree so that the advantageousness of different game states can be compared.
+An evaluation function quantifies the value or goodness of a node in a game tree, allowing the advantageousness of different game states to be compared. Here is a visual demonstration of how I evaluated a state of Connect Four:
 
 <p align="center">
   <img src="https://i.postimg.cc/GmLbJjYc/eval-func.png" />
 </p>
 
-[![eval-func.png](https://i.postimg.cc/GmLbJjYc/eval-func.png)](https://postimg.cc/vcKRGf3j)
+Typically, an evaluation function either attaches values to positions or estimates the number of ways to win or lose. My evaluation function does the former: It separates the positions on the Connect Four board into four distinct features (red, orange, yellow, green) according to proximity to the center of the board, and it assigns every position a value (7, 5, 3, 1) according to the feature it belongs to. The closer a position is to the center of the board, the greater the assigned value (e.g. red, the center of the board, is assigned the greatest value). Intuitively, central positions on the Connect Four board seem more valuable, because there is more "space" around them to form connections; my evaluation function has captured this intuition in a simple and uniform manner.
 
-I described my evaluation function with
-- A detailed motivation on why I believe my evaluation function is reasonable
-- My evaluation function as a numerical expression with definitions of all variables
-- One worked example showing a board state and my evaluation function score
+For more information about this (i.e. the evaluation function as a numerical expression, with definitions of variables and an example of a particular game state), see the report.
 
 ## Part 2: Implementing Evaluation Function and Minimax Algorithm
 Due to the exponentially large game trees of complex games such as chess, non-deterministic algorithms will use partial game trees, making computation feasible on modern computers.
