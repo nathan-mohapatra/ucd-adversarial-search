@@ -24,6 +24,10 @@ In the context of game theory, a game tree is a graph representing all possible 
 
 An evaluation function quantifies the value or goodness of a node in a game tree so that the advantageousness of different game states can be compared.
 
+<p align="center">
+  [![eval-func.png](https://i.postimg.cc/GmLbJjYc/eval-func.png)](https://postimg.cc/vcKRGf3j)
+</p>
+
 [![eval-func.png](https://i.postimg.cc/GmLbJjYc/eval-func.png)](https://postimg.cc/vcKRGf3j)
 
 I described my evaluation function with
