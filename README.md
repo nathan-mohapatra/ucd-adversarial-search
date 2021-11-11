@@ -19,33 +19,36 @@ Any unspecified players will be filled in with human players.
 You can also customize how much time is available to the AI players. By default, each AI player has 500ms to select a move. You can use the `-t` switch to change this.  
 You can also use the `--help` switch to learn more about the options available to you.
 
-## Part 1
+## Part 1: Creating Evaluation Function
+In the context of game theory, a game tree is a graph representing all possible game states within such a game; it is a directed graph whose nodes are states (e.g. the arrangement of the pieces in a board game) and whose edges are actions (e.g. to move a piece from one position on the board to another). Following this analogy, the root node of the tree is the starting state of a game, and the leaf nodes are the termial states of a game.
+
+An evaluation function quantifies the value or goodness of a node in a game tree so that the advantageousness of different game states can be compared.
+
+[![eval-func.png](https://i.postimg.cc/GmLbJjYc/eval-func.png)](https://postimg.cc/vcKRGf3j)
+
 I described my evaluation function with
 - A detailed motivation on why I believe my evaluation function is reasonable
 - My evaluation function as a numerical expression with definitions of all variables
 - One worked example showing a board state and my evaluation function score
 
-## Part 2
+## Part 2: Implementing Evaluation Function and Minimax Algorithm
+Due to the exponentially large game trees of complex games such as chess, non-deterministic algorithms will use partial game trees, making computation feasible on modern computers.
+
 I implemented the minimax algorithm and my evaluation function following the interface defined above.
 
-## Part 3
+## Part 3: Recording Minimax Algorithm Performance
 I played my algorithm five times against the given AI players: **StupidAI** and **RandomAI**. My algorithm always beats these two AI players. Then, I played my algorithm ten times against **MonteCarloAI**. My algorithm beat this AI player the majority of times.
 
 > Use the `-text` option and the `-seed` options (seeds 1 through 10) to produce the entire output from stdout. You can use output redirection to save this to a file.
 
 I clearly reported how many of the twenty games my algorithm won/lost/drew.
 
-## Part 4
+## Part 4: Implementing Alpha-Beta Pruning Algorithm
 I implemented the alpha-beta pruning algorithm. I described my successor function and how I ordered moves to ensure that the best case situation occurs.
 
-## Part 5
+## Part 5: Record Alpha-Beta Pruning Algorithm Performance
 I implemented the alpha-beta pruning algorithm and my evaluation function. I played my algorithm twenty times against **MonteCarloAI**. My algorithm beat this AI player the majority of times.
 
 > Use the `-text` option and the `-seed` options (seeds 1 through 20) to produce the entire output from stdout. You can use output redirection to save this to a file.
 
 I clearly reported how many of the twenty games my algorithm won/lost/drew.
-
-### Submission
-- **report2.pdf**: A description of my evaluation function and my successor function; the entire output from stdout from each of the forty games my algorithm played against various AI players
-- **minimax_914862981.java**
-- **alphabeta_914862981.java**
