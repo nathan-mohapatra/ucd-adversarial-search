@@ -10,9 +10,7 @@ Connect Four is a tic-tac-toe variant played on a grid. Players alternate turns 
 
 I began by creating an instance of the `AIModule` class that plays Connect Four (by familiarizing myself with the workings of the provided `GameState` and `AIModule` classes). Since even a simple minimax player can play perfectly given unlimited time, the goal is to create a player that can select an optimal move under limited time conditions.
 
-The provided Connect Four framework allows you to mix and match human and computer opponents using the command line. By default, the two players are human-controlled. You can choose which AI modules to use by using the `-p1` and `-p2` switches for the first player and the second player, respectively. For example, to pit the `RandomAI` player against the `MonteCarloAI` player, you could use:
-
-> `java Main -p1 RandomAI -p2 MonteCarloAI`
+The provided Connect Four framework allows you to mix and match human and computer opponents using the command line. By default, the two players are human-controlled. You can choose which AI modules to use by using the `-p1` and `-p2` switches for the first player and the second player, respectively. For example, to pit the `RandomAI` player against the `MonteCarloAI` player, you could use: `java Main -p1 RandomAI -p2 MonteCarloAI`
 
 Any unspecified players will be filled in with human players.
 
@@ -22,7 +20,7 @@ You can also use the `--help` switch to learn more about the options available t
 ## Part 1: Creating Evaluation Function
 In the context of game theory, a game tree is a graph representing all possible game states within such a game; it is a directed graph whose nodes are states (e.g. the arrangement of the pieces in a board game) and whose edges are actions (e.g. to move a piece from one position on the board to another). Following this analogy, the root node of the tree is the starting state of a game, and the leaf nodes are the termial states of a game.
 
-An evaluation function quantifies the value or goodness of a node in a game tree, allowing the advantageousness of different game states to be compared. Here is a visual demonstration of how I evaluated a state of Connect Four:
+An evaluation function quantifies the utility (value or goodness) of a node in a game tree, allowing the advantageousness of different game states to be compared. Here is a visual demonstration of how I evaluated a state of Connect Four:
 
 <p align="center">
   <img src="https://i.postimg.cc/GmLbJjYc/eval-func.png" />
@@ -33,9 +31,13 @@ Typically, an evaluation function either attaches values to positions or estimat
 For more information about this (i.e. the evaluation function as a numerical expression, with definitions of variables and an example of a particular game state), see the report.
 
 ## Part 2: Implementing Evaluation Function and Minimax Algorithm
-Due to the exponentially large game trees of complex games such as chess, non-deterministic algorithms will use partial game trees, making computation feasible on modern computers.
+For an adversarial, two-player, zero-sum (if a player wins, then the other player loses) game such as Connect Four, the Nash equilibrium defines the solution of the game, or the leaf node that the players arrive at when they play rationally and make intelligent decisions.
 
-I implemented the minimax algorithm and my evaluation function following the interface defined above.
+Due to the exponentially large game trees of complex games, non-deterministic algorithms will use partial game trees to estimate the Nash equilibrium, making computation feasible on modern computers. The minimax algorithm is one such non-deterministic algorithm that evaluates the utility of the board several turns down the road. It defines player rationality as follows: The AI assumes that the opponent always selects the best move, minimizing the utility for the AI. With this assumption, the AI attempts to maximize the minimum utility. Thus, the two players in this scenario can be referred to as `Max` and `Min`.
+
+An interesting detail is that if a player behaves irrationally (i.e. does not minimize the utility for the AI), then the algorithm is disrupted and may not perform as well.
+
+My implementation of the evaluation function and the minimax algorithm is in the file `minimax_914862981.java`. The algorithm is recursive in that the functions simulating player decision-making call each other, with `MaxValue` calling `MinValue` and `MinValue` calling `MaxValue`. The recursive loop is broken when either a terminal state is reached or a predetermined depth limit is reached (hence the partial game tree). After the minimax algorithm moves in depth-first search fashion down the game tree until this depth is reached, `getEval` returns the utility of the board that is "passed upward" to the root node and used to select the best move.
 
 ## Part 3: Recording Minimax Algorithm Performance
 I played my algorithm five times against the given AI players: **StupidAI** and **RandomAI**. My algorithm always beats these two AI players. Then, I played my algorithm ten times against **MonteCarloAI**. My algorithm beat this AI player the majority of times.
@@ -47,7 +49,7 @@ I clearly reported how many of the twenty games my algorithm won/lost/drew.
 ## Part 4: Implementing Alpha-Beta Pruning Algorithm
 I implemented the alpha-beta pruning algorithm. I described my successor function and how I ordered moves to ensure that the best case situation occurs.
 
-## Part 5: Record Alpha-Beta Pruning Algorithm Performance
+## Part 5: Recording Alpha-Beta Pruning Algorithm Performance
 I implemented the alpha-beta pruning algorithm and my evaluation function. I played my algorithm twenty times against **MonteCarloAI**. My algorithm beat this AI player the majority of times.
 
 > Use the `-text` option and the `-seed` options (seeds 1 through 20) to produce the entire output from stdout. You can use output redirection to save this to a file.
