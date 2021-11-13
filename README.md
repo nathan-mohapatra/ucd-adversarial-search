@@ -35,23 +35,31 @@ For an adversarial, two-player, zero-sum (if a player wins, then the other playe
 
 Due to the exponentially large game trees of complex games, non-deterministic algorithms will use partial game trees to estimate the Nash equilibrium, making computation feasible on modern computers. The minimax algorithm is one such non-deterministic algorithm that evaluates the utility of the board several turns down the road. It defines player rationality as follows: The AI assumes that the opponent always selects the best move, minimizing the utility for the AI. With this assumption, the AI attempts to maximize the minimum utility. Thus, the two players in this scenario can be referred to as `Max` and `Min`.
 
-An interesting detail is that if a player behaves irrationally (i.e. does not minimize the utility for the AI), then the algorithm is disrupted and may not perform as well.
+An interesting consequence is that if a player behaves irrationally (i.e. does not minimize the utility for the AI), then the algorithm is disrupted and may not perform as well.
 
 My implementation of the evaluation function and the minimax algorithm is in the file `minimax_914862981.java`. The algorithm is recursive in that the functions simulating player decision-making call each other, with `MaxValue` calling `MinValue` and `MinValue` calling `MaxValue`. The recursive loop is broken when either a terminal state is reached or a predetermined depth limit is reached (hence the partial game tree). After the minimax algorithm moves in depth-first search fashion down the game tree until this depth is reached, `getEval` returns the utility of the board that is "passed upward" to the root node and used to select the best move.
 
 ## Part 3: Recording Minimax Algorithm Performance
-I played my algorithm five times against the given AI players: **StupidAI** and **RandomAI**. My algorithm always beats these two AI players. Then, I played my algorithm ten times against **MonteCarloAI**. My algorithm beat this AI player the majority of times.
+I played the minimax algorithm ten times against the given AI players: `StupidAI` and `RandomAI`. My algorithm always beats these two AI players. Then, I played the minimax algorithm twenty times against `MonteCarloAI`. My algorithm beat this AI player the majority of times.
 
-> Use the `-text` option and the `-seed` options (seeds 1 through 10) to produce the entire output from stdout. You can use output redirection to save this to a file.
+> Use the `-text` option and the `-seed` options (seeds 1 through 10) to produce the entire output from `stdout`. You can use output redirection to save this to a file.
 
-I clearly reported how many of the twenty games my algorithm won/lost/drew.
+I clearly reported how many of the fourty games, as either the first player or the second player, my algorithm won, lost, or tied:
+|                | `StupidAI` | `RandomAI` | `MonteCarlo` |
+|:--------------:|:----------:|:----------:|:------------:|
+| `Minimax` (P1) |     5/5    |     5/5    |     8/10     | 
+| `Minimax` (P2) |     5/5    |     5/5    |    10/10     |
 
 ## Part 4: Implementing Alpha-Beta Pruning Algorithm
 I implemented the alpha-beta pruning algorithm. I described my successor function and how I ordered moves to ensure that the best case situation occurs.
 
 ## Part 5: Recording Alpha-Beta Pruning Algorithm Performance
-I implemented the alpha-beta pruning algorithm and my evaluation function. I played my algorithm twenty times against **MonteCarloAI**. My algorithm beat this AI player the majority of times.
+I played the alpha-beta pruning algorithm twenty times against `MonteCarloAI`. My algorithm always beats this AI player.
 
-> Use the `-text` option and the `-seed` options (seeds 1 through 20) to produce the entire output from stdout. You can use output redirection to save this to a file.
+> Use the `-text` option and the `-seed` options (seeds 1 through 20) to produce the entire output from `stdout`. You can use output redirection to save this to a file.
 
-I clearly reported how many of the twenty games my algorithm won/lost/drew.
+I clearly reported how many of the twenty games, as either the first player or the second player, my algorithm won, lost, or tied:
+|                   | `MonteCarlo` |
+|:-----------------:|:------------:|
+| `Alpha-beta` (P1) |     10/10    | 
+| `Alpha-beta` (P2) |     10/10    |
