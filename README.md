@@ -33,7 +33,7 @@ For more information about this (i.e. the evaluation function as a numerical exp
 ## Part 2: Implementing Evaluation Function and Minimax Algorithm
 For an adversarial, two-player, zero-sum (if a player wins, then the other player loses) game such as Connect Four, the Nash equilibrium defines the solution of the game, or the leaf node that the players arrive at when they play rationally and make intelligent decisions.
 
-Due to the exponentially large game trees of complex games, non-deterministic algorithms will use partial game trees to estimate the Nash equilibrium, making computation feasible on modern computers. The minimax algorithm is one such non-deterministic algorithm that evaluates the utility of the board several turns down the road. It defines player rationality as follows: The AI assumes that the opponent always selects the best move, minimizing the utility for the AI. With this assumption, the AI attempts to maximize the minimum utility. Thus, the two players in this scenario can be referred to as `Max` and `Min`.
+Due to the exponentially large game trees of complex games, non-deterministic algorithms will use partial game trees to estimate the Nash equilibrium, making computation feasible on modern computers. The minimax algorithm is one such non-deterministic algorithm that evaluates the utility of the board several turns down the road. It defines player rationality as follows: The AI assumes that the opponent always selects the best move, minimizing the utility for the AI. With this assumption, the AI attempts to maximize the minimum utility. Thus, the two players in this scenario can be referred to as the maximizing player and the minimizing player, or `Max` and `Min`.
 
 An interesting consequence is that if a player behaves irrationally (i.e. does not minimize the utility for the AI), then the algorithm is disrupted and may not perform as well.
 
@@ -45,13 +45,19 @@ I played the minimax algorithm ten times against the given AI players: `StupidAI
 > Use the `-text` option and the `-seed` options (seeds 1 through 10) to produce the entire output from `stdout`. You can use output redirection to save this to a file.
 
 I clearly reported how many of the fourty games, as either the first player or the second player, my algorithm won, lost, or tied:
-|                | `StupidAI` | `RandomAI` | `MonteCarlo` |
-|:--------------:|:----------:|:----------:|:------------:|
-| `Minimax` (P1) |     5/5    |     5/5    |     8/10     | 
-| `Minimax` (P2) |     5/5    |     5/5    |    10/10     |
+|              | StupidAI | RandomAI | MonteCarlo |
+|:------------:|:--------:|:--------:|:----------:|
+| Minimax (P1) |    5/5   |    5/5   |    8/10    | 
+| Minimax (P2) |    5/5   |    5/5   |   10/10    |
 
 ## Part 4: Implementing Alpha-Beta Pruning Algorithm
-I implemented the alpha-beta pruning algorithm. I described my successor function and how I ordered moves to ensure that the best case situation occurs.
+Alpha-beta pruning is a search algorithm that optimizes the minimax algorithm by decreasing the number of nodes that are evaluated, allowing evaluation of nodes deeper in the game tree and improving performance. It maintains two values, alpha and beta, which respectively represent lower (minimum utility that the maximizing player is guaranteed) and upper (maximum utility that the minimizing player is guaranteed) bounds. Alpha and beta are updated during recursion and, if the utility of a node falls outside of these bounds, then it is "pruned" and no longer considered, as it cannot be the optimal move according to the aforementioned definition of player rationality.
+
+Furthermore, the alpha-beta pruning algorithm will often include a successor function, which orders sibling nodes in the game tree such that the optimal move is encountered earlier (and even more nodes are pruned as a result).
+
+My implementation of the alpha-beta pruning algorithm is in the file `alphabeta_914862981.java`. Alpha and beta are respectively initialized as negative infinity and positive infinity and are recursively updated in `MaxValue` and `MinValue`. The actual pruning of suboptimal nodes also occurs during recursion. Since my evaluation function gives greater weight to central columns, this information can be used to order sibling nodes to ensure that the best-case situation will occur. My successor "function" is a for-loop that uses an array of integers to iterate through the columns in a particular order, as opposed to from left to right: `MaxValue` uses `maxSuccessor` to iterate through the columns outwards from the center, and `MinValue` uses `minSuccessor` to iterate through the columns inwards from the outside.
+
+Together, alpha-beta pruning and the successor "function" doubled the depth limit, or the size of the partial game tree used to estimate the Nash equilibrium. Under limited time conditions, this is an especially important improvement.
 
 ## Part 5: Recording Alpha-Beta Pruning Algorithm Performance
 I played the alpha-beta pruning algorithm twenty times against `MonteCarloAI`. My algorithm always beats this AI player.
@@ -59,7 +65,7 @@ I played the alpha-beta pruning algorithm twenty times against `MonteCarloAI`. M
 > Use the `-text` option and the `-seed` options (seeds 1 through 20) to produce the entire output from `stdout`. You can use output redirection to save this to a file.
 
 I clearly reported how many of the twenty games, as either the first player or the second player, my algorithm won, lost, or tied:
-|                   | `MonteCarlo` |
-|:-----------------:|:------------:|
-| `Alpha-beta` (P1) |     10/10    | 
-| `Alpha-beta` (P2) |     10/10    |
+|                 | MonteCarlo |
+|:---------------:|:----------:|
+| Alpha-beta (P1) |    10/10   | 
+| Alpha-beta (P2) |    10/10   |
