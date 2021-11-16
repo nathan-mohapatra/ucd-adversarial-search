@@ -10,7 +10,8 @@ Connect Four is a tic-tac-toe variant played on a grid. Players alternate turns 
 
 I began by creating an instance of the `AIModule` class that plays Connect Four (by familiarizing myself with the workings of the provided `GameState` and `AIModule` classes). Since even a simple minimax player can play perfectly given unlimited time, the goal is to create a player that can select an optimal move under limited time conditions.
 
-The provided Connect Four framework allows you to mix and match human and computer opponents using the command line. By default, the two players are human-controlled. You can choose which AI modules to use by using the `-p1` and `-p2` switches for the first player and the second player, respectively. For example, to pit the `RandomAI` player against the `MonteCarloAI` player, you could use: `java Main -p1 RandomAI -p2 MonteCarloAI`
+The provided Connect Four framework allows you to mix and match human and computer opponents using the command line. By default, the two players are human-controlled. You can choose which AI modules to use by using the `-p1` and `-p2` switches for the first player and the second player, respectively. For example, to pit the `RandomAI` player against the `MonteCarloAI` player, you could use:  
+`java Main -p1 RandomAI -p2 MonteCarloAI`
 
 Any unspecified players will be filled in with human players.
 
